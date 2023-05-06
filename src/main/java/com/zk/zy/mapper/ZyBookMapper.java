@@ -1,8 +1,11 @@
 package com.zk.zy.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zk.zy.model.ZyBook;
 
-public interface ZyBookMapper {
+import java.util.List;
+
+public interface ZyBookMapper extends BaseMapper<ZyBook> {
     int deleteByPrimaryKey(Long id);
 
     int insert(ZyBook record);
@@ -14,4 +17,6 @@ public interface ZyBookMapper {
     int updateByPrimaryKeySelective(ZyBook record);
 
     int updateByPrimaryKey(ZyBook record);
+
+    List<ZyBook> getAll();
 }

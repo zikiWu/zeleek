@@ -1,4 +1,4 @@
-package com.zk.zy.model;
+package com.zk.zy.vo;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -10,8 +10,8 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.Date;
 
 @Data
-@Document(indexName = "zy_book")
-public class ZyBook {
+@Document(indexName = "blog", shards = 1, replicas = 1)
+public class ZyBookVO {
     /**
     * 主键
     */

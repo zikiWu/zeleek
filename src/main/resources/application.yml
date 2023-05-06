@@ -1,0 +1,106 @@
+
+server:
+  port: 8085
+  tomcat:
+    basedir: /opt/upload_tmp
+
+
+spring:
+  application:
+    name: zkzy
+  datasource:
+    username: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+
+  redis:
+    database: 0
+    lettuce:
+      pool:
+        max-active: 600
+        max-idle: 300
+        min-idle: 0
+        max-wait: 1000ms
+    timeout: 2000ms
+
+mybatis:
+  mapper-locations: classpath:mapperxml/*.xml
+  type-aliases-package: com.zk.zy.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+---
+#sit
+
+spring:
+  profiles: sit
+  datasource:
+    url: jdbc:mysql://rm-uf63142126r8yx2f2eo.mysql.rds.aliyuncs.com:3306/mxc_uat?tinyInt1isBit=false&amp;allowMultiQueries=true
+    password: 'Aa123987'
+    username: root
+
+elasticsearch:
+  host: 172.19.14.70
+  port: 9200
+  userName:
+  password:
+#  redis:
+#    host: 101.132.105.140
+#    password: 123456
+#    port: 6779
+#  rabbitmq:
+#    host: 47.101.178.154
+#    port: 5672
+#    username: root
+#    password: MXC123mxc987
+#    publisher-returns: true
+#    publisher-confirms: true
+#    listener:
+#      simple:
+#        acknowledge-mode: manual
+#        max-concurrency: 1
+#        concurrency: 1
+#        retry:
+#          enabled: true
+#          initial-interval: 5000
+#
+#xxl:
+#  job:
+#    accessToken:
+#    admin:
+#      addresses: http://172.19.14.49:18080/xxl-job-admin
+#    executor:
+#      appname: course-executor
+#      port: 9905
+#      logpath: /opt/gzcloud/xxl-job/gz-course
+#      logretentiondays: 30
+---
+#prod
+
+
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://gengzijiaoyu.mysql.rds.aliyuncs.com:3306/mxc?tinyInt1isBit=false
+    password: R1MXC123mxc987M
+
+elasticsearch:
+  host: 172.19.14.70
+  port: 9200
+  userName:
+  password:
+#xxl:
+#  job:
+#    accessToken:
+#    admin:
+#      addresses: http://172.19.14.52:18080/xxl-job-admin
+#    executor:
+#      appname: course-executor
+#      port: 9905
+#      logpath: /opt/gzcloud/xxl-job/gz-course
+#      logretentiondays: 30

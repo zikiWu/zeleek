@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/zkBook")
-public class zkBookController {
+@RequestMapping("/zyBook")
+public class ZyBookController {
 
     @Autowired
     private ZyBookService zyBookService;

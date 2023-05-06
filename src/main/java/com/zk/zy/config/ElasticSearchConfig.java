@@ -1,6 +1,6 @@
 package com.zk.zy.config;
 
-import cn.jiguang.common.utils.StringUtils;
+import org.springframework.util.StringUtils;
 import lombok.Data;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
@@ -30,7 +30,7 @@ public class ElasticSearchConfig extends AbstractElasticsearchConfiguration {
     @Override
     public RestHighLevelClient elasticsearchClient() {
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        if(StringUtils.isNotEmpty(userName) && StringUtils.isNotEmpty(password)) {
+        if(!StringUtils.isEmpty(userName) && !StringUtils.isEmpty(password)) {
             credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(userName, password));
         }
 

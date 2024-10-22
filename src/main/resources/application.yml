@@ -40,8 +40,8 @@ pagehelper:
 spring:
   profiles: sit
   datasource:
-    url: jdbc:mysql://rm-uf63142126r8yx2f2eo.mysql.rds.aliyuncs.com:3306/mxc_uat?tinyInt1isBit=false&amp;allowMultiQueries=true
-    password: 'Aa123987'
+    url: jdbc:mysql://127.0.01:3306/leek?tinyInt1isBit=false&amp;allowMultiQueries=true
+    password: 'wzk123123'
     username: root
 
 elasticsearch:
@@ -49,36 +49,6 @@ elasticsearch:
   port: 9200
   userName:
   password:
-#  redis:
-#    host: 101.132.105.140
-#    password: 123456
-#    port: 6779
-#  rabbitmq:
-#    host: 47.101.178.154
-#    port: 5672
-#    username: root
-#    password: MXC123mxc987
-#    publisher-returns: true
-#    publisher-confirms: true
-#    listener:
-#      simple:
-#        acknowledge-mode: manual
-#        max-concurrency: 1
-#        concurrency: 1
-#        retry:
-#          enabled: true
-#          initial-interval: 5000
-#
-#xxl:
-#  job:
-#    accessToken:
-#    admin:
-#      addresses: http://172.19.14.49:18080/xxl-job-admin
-#    executor:
-#      appname: course-executor
-#      port: 9905
-#      logpath: /opt/gzcloud/xxl-job/gz-course
-#      logretentiondays: 30
 ---
 #prod
 
@@ -94,13 +64,3 @@ elasticsearch:
   port: 9200
   userName:
   password:
-#xxl:
-#  job:
-#    accessToken:
-#    admin:
-#      addresses: http://172.19.14.52:18080/xxl-job-admin
-#    executor:
-#      appname: course-executor
-#      port: 9905
-#      logpath: /opt/gzcloud/xxl-job/gz-course
-#      logretentiondays: 30

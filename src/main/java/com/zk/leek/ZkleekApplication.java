@@ -1,4 +1,4 @@
-package com.zk.zy;
+package com.zk.leek;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -8,14 +8,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication()
-@MapperScan("com.zk.zy.mapper")
+@MapperScan("com.zk.leek.mapper")
 @EnableAspectJAutoProxy(proxyTargetClass=true, exposeProxy=true)
 @EnableScheduling
 @EnableTransactionManagement
-public class ZkzyApplication {
+public class ZkleekApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ZkzyApplication.class, args);
+        SpringApplication.run(ZkleekApplication.class, args);
     }
 
 }

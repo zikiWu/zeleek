@@ -1,4 +1,4 @@
-package com.zk.zy.common;
+package com.zk.leek.common;
 
 public class ResponseCode {
 

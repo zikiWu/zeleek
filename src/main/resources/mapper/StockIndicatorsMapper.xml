@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zk.leek.mapper.StockIndicatorsMapper">
+  <resultMap id="BaseResultMap" type="com.zk.leek.model.StockIndicators">
+    <!--@mbg.generated-->
+    <!--@Table stock_indicators-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="stock_id" jdbcType="BIGINT" property="stockId" />
+    <result column="stock_code" jdbcType="VARCHAR" property="stockCode" />
+    <result column="stat_date" jdbcType="DATE" property="statDate" />
+    <result column="open" jdbcType="DECIMAL" property="open" />
+    <result column="high" jdbcType="DECIMAL" property="high" />
+    <result column="volume" jdbcType="BIGINT" property="volume" />
+    <result column="pre_close" jdbcType="DECIMAL" property="preClose" />
+    <result column="low" jdbcType="DECIMAL" property="low" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="turnover_ratio" jdbcType="DECIMAL" property="turnoverRatio" />
+    <result column="peratio" jdbcType="DECIMAL" property="peratio" />
+    <result column="capitalization" jdbcType="DECIMAL" property="capitalization" />
+    <result column="volume_ratio" jdbcType="DECIMAL" property="volumeRatio" />
+    <result column="lyr" jdbcType="DECIMAL" property="lyr" />
+    <result column="total_share_capital" jdbcType="DECIMAL" property="totalShareCapital" />
+    <result column="weibi_ratio" jdbcType="DECIMAL" property="weibiRatio" />
+    <result column="avg_price" jdbcType="DECIMAL" property="avgPrice" />
+    <result column="currency_value" jdbcType="DECIMAL" property="currencyValue" />
+    <result column="limit_up" jdbcType="DECIMAL" property="limitUp" />
+    <result column="price_limit" jdbcType="DECIMAL" property="priceLimit" />
+    <result column="circulating_capital" jdbcType="DECIMAL" property="circulatingCapital" />
+    <result column="limit_down" jdbcType="DECIMAL" property="limitDown" />
+    <result column="amplitude_ratio" jdbcType="DECIMAL" property="amplitudeRatio" />
+    <result column="inside" jdbcType="BIGINT" property="inside" />
+    <result column="priceSale_ratio" jdbcType="VARCHAR" property="pricesaleRatio" />
+    <result column="bv_ratio" jdbcType="DECIMAL" property="bvRatio" />
+    <result column="outside" jdbcType="BIGINT" property="outside" />
+    <result column="w52_high" jdbcType="DECIMAL" property="w52High" />
+    <result column="w52_low" jdbcType="DECIMAL" property="w52Low" />
+    <result column="profit_flag" jdbcType="VARCHAR" property="profitFlag" />
+    <result column="vote_right_flag" jdbcType="VARCHAR" property="voteRightFlag" />
+    <result column="ptcc_flag" jdbcType="VARCHAR" property="ptccFlag" />
+    <result column="reg_flag" jdbcType="VARCHAR" property="regFlag" />
+    <result column="all_data" jdbcType="LONGVARCHAR" property="allData" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, stock_id, stock_code, stat_date, `open`, high, volume, pre_close, low, amount, 
+    turnover_ratio, peratio, capitalization, volume_ratio, lyr, total_share_capital, 
+    weibi_ratio, avg_price, currency_value, limit_up, price_limit, circulating_capital, 
+    limit_down, amplitude_ratio, inside, priceSale_ratio, bv_ratio, outside, w52_high, 
+    w52_low, profit_flag, vote_right_flag, ptcc_flag, reg_flag, all_data
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from stock_indicators
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from stock_indicators
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zk.leek.model.StockIndicators" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into stock_indicators (stock_id, stock_code, stat_date, 
+      `open`, high, volume, 
+      pre_close, low, amount, 
+      turnover_ratio, peratio, capitalization, 
+      volume_ratio, lyr, total_share_capital, 
+      weibi_ratio, avg_price, currency_value, 
+      limit_up, price_limit, circulating_capital, 
+      limit_down, amplitude_ratio, inside, 
+      priceSale_ratio, bv_ratio, outside, 
+      w52_high, w52_low, profit_flag, 
+      vote_right_flag, ptcc_flag, reg_flag, 
+      all_data)
+    values (#{stockId,jdbcType=BIGINT}, #{stockCode,jdbcType=VARCHAR}, #{statDate,jdbcType=DATE}, 
+      #{open,jdbcType=DECIMAL}, #{high,jdbcType=DECIMAL}, #{volume,jdbcType=BIGINT}, 
+      #{preClose,jdbcType=DECIMAL}, #{low,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{turnoverRatio,jdbcType=DECIMAL}, #{peratio,jdbcType=DECIMAL}, #{capitalization,jdbcType=DECIMAL}, 
+      #{volumeRatio,jdbcType=DECIMAL}, #{lyr,jdbcType=DECIMAL}, #{totalShareCapital,jdbcType=DECIMAL}, 
+      #{weibiRatio,jdbcType=DECIMAL}, #{avgPrice,jdbcType=DECIMAL}, #{currencyValue,jdbcType=DECIMAL}, 
+      #{limitUp,jdbcType=DECIMAL}, #{priceLimit,jdbcType=DECIMAL}, #{circulatingCapital,jdbcType=DECIMAL}, 
+      #{limitDown,jdbcType=DECIMAL}, #{amplitudeRatio,jdbcType=DECIMAL}, #{inside,jdbcType=BIGINT}, 
+      #{pricesaleRatio,jdbcType=VARCHAR}, #{bvRatio,jdbcType=DECIMAL}, #{outside,jdbcType=BIGINT}, 
+      #{w52High,jdbcType=DECIMAL}, #{w52Low,jdbcType=DECIMAL}, #{profitFlag,jdbcType=VARCHAR}, 
+      #{voteRightFlag,jdbcType=VARCHAR}, #{ptccFlag,jdbcType=VARCHAR}, #{regFlag,jdbcType=VARCHAR}, 
+      #{allData,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zk.leek.model.StockIndicators" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into stock_indicators
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stockId != null">
+        stock_id,
+      </if>
+      <if test="stockCode != null">
+        stock_code,
+      </if>
+      <if test="statDate != null">
+        stat_date,
+      </if>
+      <if test="open != null">
+        `open`,
+      </if>
+      <if test="high != null">
+        high,
+      </if>
+      <if test="volume != null">
+        volume,
+      </if>
+      <if test="preClose != null">
+        pre_close,
+      </if>
+      <if test="low != null">
+        low,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="turnoverRatio != null">
+        turnover_ratio,
+      </if>
+      <if test="peratio != null">
+        peratio,
+      </if>
+      <if test="capitalization != null">
+        capitalization,
+      </if>
+      <if test="volumeRatio != null">
+        volume_ratio,
+      </if>
+      <if test="lyr != null">
+        lyr,
+      </if>
+      <if test="totalShareCapital != null">
+        total_share_capital,
+      </if>
+      <if test="weibiRatio != null">
+        weibi_ratio,
+      </if>
+      <if test="avgPrice != null">
+        avg_price,
+      </if>
+      <if test="currencyValue != null">
+        currency_value,
+      </if>
+      <if test="limitUp != null">
+        limit_up,
+      </if>
+      <if test="priceLimit != null">
+        price_limit,
+      </if>
+      <if test="circulatingCapital != null">
+        circulating_capital,
+      </if>
+      <if test="limitDown != null">
+        limit_down,
+      </if>
+      <if test="amplitudeRatio != null">
+        amplitude_ratio,
+      </if>
+      <if test="inside != null">
+        inside,
+      </if>
+      <if test="pricesaleRatio != null">
+        priceSale_ratio,
+      </if>
+      <if test="bvRatio != null">
+        bv_ratio,
+      </if>
+      <if test="outside != null">
+        outside,
+      </if>
+      <if test="w52High != null">
+        w52_high,
+      </if>
+      <if test="w52Low != null">
+        w52_low,
+      </if>
+      <if test="profitFlag != null">
+        profit_flag,
+      </if>
+      <if test="voteRightFlag != null">
+        vote_right_flag,
+      </if>
+      <if test="ptccFlag != null">
+        ptcc_flag,
+      </if>
+      <if test="regFlag != null">
+        reg_flag,
+      </if>
+      <if test="allData != null">
+        all_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stockId != null">
+        #{stockId,jdbcType=BIGINT},
+      </if>
+      <if test="stockCode != null">
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="statDate != null">
+        #{statDate,jdbcType=DATE},
+      </if>
+      <if test="open != null">
+        #{open,jdbcType=DECIMAL},
+      </if>
+      <if test="high != null">
+        #{high,jdbcType=DECIMAL},
+      </if>
+      <if test="volume != null">
+        #{volume,jdbcType=BIGINT},
+      </if>
+      <if test="preClose != null">
+        #{preClose,jdbcType=DECIMAL},
+      </if>
+      <if test="low != null">
+        #{low,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="turnoverRatio != null">
+        #{turnoverRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="peratio != null">
+        #{peratio,jdbcType=DECIMAL},
+      </if>
+      <if test="capitalization != null">
+        #{capitalization,jdbcType=DECIMAL},
+      </if>
+      <if test="volumeRatio != null">
+        #{volumeRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="lyr != null">
+        #{lyr,jdbcType=DECIMAL},
+      </if>
+      <if test="totalShareCapital != null">
+        #{totalShareCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="weibiRatio != null">
+        #{weibiRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="avgPrice != null">
+        #{avgPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="currencyValue != null">
+        #{currencyValue,jdbcType=DECIMAL},
+      </if>
+      <if test="limitUp != null">
+        #{limitUp,jdbcType=DECIMAL},
+      </if>
+      <if test="priceLimit != null">
+        #{priceLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="circulatingCapital != null">
+        #{circulatingCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="limitDown != null">
+        #{limitDown,jdbcType=DECIMAL},
+      </if>
+      <if test="amplitudeRatio != null">
+        #{amplitudeRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="inside != null">
+        #{inside,jdbcType=BIGINT},
+      </if>
+      <if test="pricesaleRatio != null">
+        #{pricesaleRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="bvRatio != null">
+        #{bvRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="outside != null">
+        #{outside,jdbcType=BIGINT},
+      </if>
+      <if test="w52High != null">
+        #{w52High,jdbcType=DECIMAL},
+      </if>
+      <if test="w52Low != null">
+        #{w52Low,jdbcType=DECIMAL},
+      </if>
+      <if test="profitFlag != null">
+        #{profitFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="voteRightFlag != null">
+        #{voteRightFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="ptccFlag != null">
+        #{ptccFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="regFlag != null">
+        #{regFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="allData != null">
+        #{allData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zk.leek.model.StockIndicators">
+    <!--@mbg.generated-->
+    update stock_indicators
+    <set>
+      <if test="stockId != null">
+        stock_id = #{stockId,jdbcType=BIGINT},
+      </if>
+      <if test="stockCode != null">
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="statDate != null">
+        stat_date = #{statDate,jdbcType=DATE},
+      </if>
+      <if test="open != null">
+        `open` = #{open,jdbcType=DECIMAL},
+      </if>
+      <if test="high != null">
+        high = #{high,jdbcType=DECIMAL},
+      </if>
+      <if test="volume != null">
+        volume = #{volume,jdbcType=BIGINT},
+      </if>
+      <if test="preClose != null">
+        pre_close = #{preClose,jdbcType=DECIMAL},
+      </if>
+      <if test="low != null">
+        low = #{low,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="turnoverRatio != null">
+        turnover_ratio = #{turnoverRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="peratio != null">
+        peratio = #{peratio,jdbcType=DECIMAL},
+      </if>
+      <if test="capitalization != null">
+        capitalization = #{capitalization,jdbcType=DECIMAL},
+      </if>
+      <if test="volumeRatio != null">
+        volume_ratio = #{volumeRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="lyr != null">
+        lyr = #{lyr,jdbcType=DECIMAL},
+      </if>
+      <if test="totalShareCapital != null">
+        total_share_capital = #{totalShareCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="weibiRatio != null">
+        weibi_ratio = #{weibiRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="avgPrice != null">
+        avg_price = #{avgPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="currencyValue != null">
+        currency_value = #{currencyValue,jdbcType=DECIMAL},
+      </if>
+      <if test="limitUp != null">
+        limit_up = #{limitUp,jdbcType=DECIMAL},
+      </if>
+      <if test="priceLimit != null">
+        price_limit = #{priceLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="circulatingCapital != null">
+        circulating_capital = #{circulatingCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="limitDown != null">
+        limit_down = #{limitDown,jdbcType=DECIMAL},
+      </if>
+      <if test="amplitudeRatio != null">
+        amplitude_ratio = #{amplitudeRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="inside != null">
+        inside = #{inside,jdbcType=BIGINT},
+      </if>
+      <if test="pricesaleRatio != null">
+        priceSale_ratio = #{pricesaleRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="bvRatio != null">
+        bv_ratio = #{bvRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="outside != null">
+        outside = #{outside,jdbcType=BIGINT},
+      </if>
+      <if test="w52High != null">
+        w52_high = #{w52High,jdbcType=DECIMAL},
+      </if>
+      <if test="w52Low != null">
+        w52_low = #{w52Low,jdbcType=DECIMAL},
+      </if>
+      <if test="profitFlag != null">
+        profit_flag = #{profitFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="voteRightFlag != null">
+        vote_right_flag = #{voteRightFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="ptccFlag != null">
+        ptcc_flag = #{ptccFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="regFlag != null">
+        reg_flag = #{regFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="allData != null">
+        all_data = #{allData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zk.leek.model.StockIndicators">
+    <!--@mbg.generated-->
+    update stock_indicators
+    set stock_id = #{stockId,jdbcType=BIGINT},
+      stock_code = #{stockCode,jdbcType=VARCHAR},
+      stat_date = #{statDate,jdbcType=DATE},
+      `open` = #{open,jdbcType=DECIMAL},
+      high = #{high,jdbcType=DECIMAL},
+      volume = #{volume,jdbcType=BIGINT},
+      pre_close = #{preClose,jdbcType=DECIMAL},
+      low = #{low,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      turnover_ratio = #{turnoverRatio,jdbcType=DECIMAL},
+      peratio = #{peratio,jdbcType=DECIMAL},
+      capitalization = #{capitalization,jdbcType=DECIMAL},
+      volume_ratio = #{volumeRatio,jdbcType=DECIMAL},
+      lyr = #{lyr,jdbcType=DECIMAL},
+      total_share_capital = #{totalShareCapital,jdbcType=DECIMAL},
+      weibi_ratio = #{weibiRatio,jdbcType=DECIMAL},
+      avg_price = #{avgPrice,jdbcType=DECIMAL},
+      currency_value = #{currencyValue,jdbcType=DECIMAL},
+      limit_up = #{limitUp,jdbcType=DECIMAL},
+      price_limit = #{priceLimit,jdbcType=DECIMAL},
+      circulating_capital = #{circulatingCapital,jdbcType=DECIMAL},
+      limit_down = #{limitDown,jdbcType=DECIMAL},
+      amplitude_ratio = #{amplitudeRatio,jdbcType=DECIMAL},
+      inside = #{inside,jdbcType=BIGINT},
+      priceSale_ratio = #{pricesaleRatio,jdbcType=VARCHAR},
+      bv_ratio = #{bvRatio,jdbcType=DECIMAL},
+      outside = #{outside,jdbcType=BIGINT},
+      w52_high = #{w52High,jdbcType=DECIMAL},
+      w52_low = #{w52Low,jdbcType=DECIMAL},
+      profit_flag = #{profitFlag,jdbcType=VARCHAR},
+      vote_right_flag = #{voteRightFlag,jdbcType=VARCHAR},
+      ptcc_flag = #{ptccFlag,jdbcType=VARCHAR},
+      reg_flag = #{regFlag,jdbcType=VARCHAR},
+      all_data = #{allData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into stock_indicators
+    (stock_id, stock_code, stat_date, `open`, high, volume, pre_close, low, amount, turnover_ratio, 
+      peratio, capitalization, volume_ratio, lyr, total_share_capital, weibi_ratio, avg_price, 
+      currency_value, limit_up, price_limit, circulating_capital, limit_down, amplitude_ratio, 
+      inside, priceSale_ratio, bv_ratio, outside, w52_high, w52_low, profit_flag, vote_right_flag, 
+      ptcc_flag, reg_flag, all_data)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.stockId,jdbcType=BIGINT}, #{item.stockCode,jdbcType=VARCHAR}, #{item.statDate,jdbcType=DATE}, 
+        #{item.open,jdbcType=DECIMAL}, #{item.high,jdbcType=DECIMAL}, #{item.volume,jdbcType=BIGINT}, 
+        #{item.preClose,jdbcType=DECIMAL}, #{item.low,jdbcType=DECIMAL}, #{item.amount,jdbcType=DECIMAL}, 
+        #{item.turnoverRatio,jdbcType=DECIMAL}, #{item.peratio,jdbcType=DECIMAL}, #{item.capitalization,jdbcType=DECIMAL}, 
+        #{item.volumeRatio,jdbcType=DECIMAL}, #{item.lyr,jdbcType=DECIMAL}, #{item.totalShareCapital,jdbcType=DECIMAL}, 
+        #{item.weibiRatio,jdbcType=DECIMAL}, #{item.avgPrice,jdbcType=DECIMAL}, #{item.currencyValue,jdbcType=DECIMAL}, 
+        #{item.limitUp,jdbcType=DECIMAL}, #{item.priceLimit,jdbcType=DECIMAL}, #{item.circulatingCapital,jdbcType=DECIMAL}, 
+        #{item.limitDown,jdbcType=DECIMAL}, #{item.amplitudeRatio,jdbcType=DECIMAL}, #{item.inside,jdbcType=BIGINT}, 
+        #{item.pricesaleRatio,jdbcType=VARCHAR}, #{item.bvRatio,jdbcType=DECIMAL}, #{item.outside,jdbcType=BIGINT}, 
+        #{item.w52High,jdbcType=DECIMAL}, #{item.w52Low,jdbcType=DECIMAL}, #{item.profitFlag,jdbcType=VARCHAR}, 
+        #{item.voteRightFlag,jdbcType=VARCHAR}, #{item.ptccFlag,jdbcType=VARCHAR}, #{item.regFlag,jdbcType=VARCHAR}, 
+        #{item.allData,jdbcType=LONGVARCHAR})
+    </foreach>
+  </insert>
+
+  <delete id="delByDateAndCode">
+    delete from stock_indicators where stat_date = date_format(#{date}, '%Y-%m-%d') and stock_code = #{code}
+  </delete>
+</mapper>

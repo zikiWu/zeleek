@@ -1,7 +1,7 @@
-package com.zk.zy.util;
+package com.zk.leek.util;
 
 
-import com.zk.zy.constant.DurationConstants;
+import com.zk.leek.constant.DurationConstants;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;

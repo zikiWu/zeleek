@@ -1,4 +1,4 @@
-package com.zk.zy.util;
+package com.zk.leek.util;
 
 /**
  * CouponEffectUtil 工具类.

@@ -1,6 +1,5 @@
-package com.gz.mxc.service.asynctaskpool.config;
+package com.zk.leek.config;
 
-import com.gz.mxc.service.asynctaskpool.executor.ExceptionHandlingAsyncTaskExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -31,16 +30,15 @@ public class AsyncTaskExecutorConfiguration implements AsyncConfigurer {
 		log.debug("Creating Async Task Executor");
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 		//线程池维护线程的最小数量.
-		executor.setCorePoolSize(50);
+		executor.setCorePoolSize(200);
 		//线程池维护线程的最大数量.
-		executor.setMaxPoolSize(100);
+		executor.setMaxPoolSize(10000);
 		//队列最大长度
 		executor.setQueueCapacity(10000);
 		//空闲线程的存活时间
-		executor.setKeepAliveSeconds(3000);
-		//线程池名称浅醉前缀
-		executor.setThreadNamePrefix("ybt-task-executor-");
-		return new ExceptionHandlingAsyncTaskExecutor(executor);
+		executor.setKeepAliveSeconds(30000);
+		executor.initialize();
+		return executor;
 	}
 
 	@Override

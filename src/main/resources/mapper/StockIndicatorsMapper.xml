@@ -8,6 +8,10 @@
     <result column="stock_id" jdbcType="BIGINT" property="stockId" />
     <result column="stock_code" jdbcType="VARCHAR" property="stockCode" />
     <result column="stat_date" jdbcType="DATE" property="statDate" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="ratioStr" jdbcType="VARCHAR" property="ratiostr" />
+    <result column="ratio" jdbcType="DECIMAL" property="ratio" />
+    <result column="increase" jdbcType="VARCHAR" property="increase" />
     <result column="open" jdbcType="DECIMAL" property="open" />
     <result column="high" jdbcType="DECIMAL" property="high" />
     <result column="volume" jdbcType="BIGINT" property="volume" />
@@ -42,11 +46,11 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, stock_id, stock_code, stat_date, `open`, high, volume, pre_close, low, amount, 
-    turnover_ratio, peratio, capitalization, volume_ratio, lyr, total_share_capital, 
-    weibi_ratio, avg_price, currency_value, limit_up, price_limit, circulating_capital, 
-    limit_down, amplitude_ratio, inside, priceSale_ratio, bv_ratio, outside, w52_high, 
-    w52_low, profit_flag, vote_right_flag, ptcc_flag, reg_flag, all_data
+    id, stock_id, stock_code, stat_date, price, ratioStr, ratio, increase, `open`, high, 
+    volume, pre_close, low, amount, turnover_ratio, peratio, capitalization, volume_ratio, 
+    lyr, total_share_capital, weibi_ratio, avg_price, currency_value, limit_up, price_limit, 
+    circulating_capital, limit_down, amplitude_ratio, inside, priceSale_ratio, bv_ratio, 
+    outside, w52_high, w52_low, profit_flag, vote_right_flag, ptcc_flag, reg_flag, all_data
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -63,29 +67,31 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zk.leek.model.StockIndicators" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into stock_indicators (stock_id, stock_code, stat_date, 
-      `open`, high, volume, 
-      pre_close, low, amount, 
-      turnover_ratio, peratio, capitalization, 
-      volume_ratio, lyr, total_share_capital, 
-      weibi_ratio, avg_price, currency_value, 
-      limit_up, price_limit, circulating_capital, 
-      limit_down, amplitude_ratio, inside, 
-      priceSale_ratio, bv_ratio, outside, 
-      w52_high, w52_low, profit_flag, 
-      vote_right_flag, ptcc_flag, reg_flag, 
-      all_data)
+      price, ratioStr, ratio, 
+      increase, `open`, high, 
+      volume, pre_close, low, 
+      amount, turnover_ratio, peratio, 
+      capitalization, volume_ratio, lyr, 
+      total_share_capital, weibi_ratio, avg_price, 
+      currency_value, limit_up, price_limit, 
+      circulating_capital, limit_down, amplitude_ratio, 
+      inside, priceSale_ratio, bv_ratio, 
+      outside, w52_high, w52_low, 
+      profit_flag, vote_right_flag, ptcc_flag, 
+      reg_flag, all_data)
     values (#{stockId,jdbcType=BIGINT}, #{stockCode,jdbcType=VARCHAR}, #{statDate,jdbcType=DATE}, 
-      #{open,jdbcType=DECIMAL}, #{high,jdbcType=DECIMAL}, #{volume,jdbcType=BIGINT}, 
-      #{preClose,jdbcType=DECIMAL}, #{low,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
-      #{turnoverRatio,jdbcType=DECIMAL}, #{peratio,jdbcType=DECIMAL}, #{capitalization,jdbcType=DECIMAL}, 
-      #{volumeRatio,jdbcType=DECIMAL}, #{lyr,jdbcType=DECIMAL}, #{totalShareCapital,jdbcType=DECIMAL}, 
-      #{weibiRatio,jdbcType=DECIMAL}, #{avgPrice,jdbcType=DECIMAL}, #{currencyValue,jdbcType=DECIMAL}, 
-      #{limitUp,jdbcType=DECIMAL}, #{priceLimit,jdbcType=DECIMAL}, #{circulatingCapital,jdbcType=DECIMAL}, 
-      #{limitDown,jdbcType=DECIMAL}, #{amplitudeRatio,jdbcType=DECIMAL}, #{inside,jdbcType=BIGINT}, 
-      #{pricesaleRatio,jdbcType=VARCHAR}, #{bvRatio,jdbcType=DECIMAL}, #{outside,jdbcType=BIGINT}, 
-      #{w52High,jdbcType=DECIMAL}, #{w52Low,jdbcType=DECIMAL}, #{profitFlag,jdbcType=VARCHAR}, 
-      #{voteRightFlag,jdbcType=VARCHAR}, #{ptccFlag,jdbcType=VARCHAR}, #{regFlag,jdbcType=VARCHAR}, 
-      #{allData,jdbcType=LONGVARCHAR})
+      #{price,jdbcType=DECIMAL}, #{ratiostr,jdbcType=VARCHAR}, #{ratio,jdbcType=DECIMAL}, 
+      #{increase,jdbcType=VARCHAR}, #{open,jdbcType=DECIMAL}, #{high,jdbcType=DECIMAL}, 
+      #{volume,jdbcType=BIGINT}, #{preClose,jdbcType=DECIMAL}, #{low,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=DECIMAL}, #{turnoverRatio,jdbcType=DECIMAL}, #{peratio,jdbcType=DECIMAL}, 
+      #{capitalization,jdbcType=DECIMAL}, #{volumeRatio,jdbcType=DECIMAL}, #{lyr,jdbcType=DECIMAL}, 
+      #{totalShareCapital,jdbcType=DECIMAL}, #{weibiRatio,jdbcType=DECIMAL}, #{avgPrice,jdbcType=DECIMAL}, 
+      #{currencyValue,jdbcType=DECIMAL}, #{limitUp,jdbcType=DECIMAL}, #{priceLimit,jdbcType=DECIMAL}, 
+      #{circulatingCapital,jdbcType=DECIMAL}, #{limitDown,jdbcType=DECIMAL}, #{amplitudeRatio,jdbcType=DECIMAL}, 
+      #{inside,jdbcType=BIGINT}, #{pricesaleRatio,jdbcType=VARCHAR}, #{bvRatio,jdbcType=DECIMAL}, 
+      #{outside,jdbcType=BIGINT}, #{w52High,jdbcType=DECIMAL}, #{w52Low,jdbcType=DECIMAL}, 
+      #{profitFlag,jdbcType=VARCHAR}, #{voteRightFlag,jdbcType=VARCHAR}, #{ptccFlag,jdbcType=VARCHAR}, 
+      #{regFlag,jdbcType=VARCHAR}, #{allData,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zk.leek.model.StockIndicators" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -99,6 +105,18 @@
       </if>
       <if test="statDate != null">
         stat_date,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="ratiostr != null">
+        ratioStr,
+      </if>
+      <if test="ratio != null">
+        ratio,
+      </if>
+      <if test="increase != null">
+        increase,
       </if>
       <if test="open != null">
         `open`,
@@ -203,6 +221,18 @@
       </if>
       <if test="statDate != null">
         #{statDate,jdbcType=DATE},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="ratiostr != null">
+        #{ratiostr,jdbcType=VARCHAR},
+      </if>
+      <if test="ratio != null">
+        #{ratio,jdbcType=DECIMAL},
+      </if>
+      <if test="increase != null">
+        #{increase,jdbcType=VARCHAR},
       </if>
       <if test="open != null">
         #{open,jdbcType=DECIMAL},
@@ -312,6 +342,18 @@
       <if test="statDate != null">
         stat_date = #{statDate,jdbcType=DATE},
       </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="ratiostr != null">
+        ratioStr = #{ratiostr,jdbcType=VARCHAR},
+      </if>
+      <if test="ratio != null">
+        ratio = #{ratio,jdbcType=DECIMAL},
+      </if>
+      <if test="increase != null">
+        increase = #{increase,jdbcType=VARCHAR},
+      </if>
       <if test="open != null">
         `open` = #{open,jdbcType=DECIMAL},
       </if>
@@ -414,6 +456,10 @@
     set stock_id = #{stockId,jdbcType=BIGINT},
       stock_code = #{stockCode,jdbcType=VARCHAR},
       stat_date = #{statDate,jdbcType=DATE},
+      price = #{price,jdbcType=DECIMAL},
+      ratioStr = #{ratiostr,jdbcType=VARCHAR},
+      ratio = #{ratio,jdbcType=DECIMAL},
+      increase = #{increase,jdbcType=VARCHAR},
       `open` = #{open,jdbcType=DECIMAL},
       high = #{high,jdbcType=DECIMAL},
       volume = #{volume,jdbcType=BIGINT},
@@ -450,20 +496,23 @@
   <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into stock_indicators
-    (stock_id, stock_code, stat_date, `open`, high, volume, pre_close, low, amount, turnover_ratio, 
-      peratio, capitalization, volume_ratio, lyr, total_share_capital, weibi_ratio, avg_price, 
-      currency_value, limit_up, price_limit, circulating_capital, limit_down, amplitude_ratio, 
-      inside, priceSale_ratio, bv_ratio, outside, w52_high, w52_low, profit_flag, vote_right_flag, 
-      ptcc_flag, reg_flag, all_data)
+    (stock_id, stock_code, stat_date, price, ratioStr, ratio, increase, `open`, high, 
+      volume, pre_close, low, amount, turnover_ratio, peratio, capitalization, volume_ratio, 
+      lyr, total_share_capital, weibi_ratio, avg_price, currency_value, limit_up, price_limit, 
+      circulating_capital, limit_down, amplitude_ratio, inside, priceSale_ratio, bv_ratio, 
+      outside, w52_high, w52_low, profit_flag, vote_right_flag, ptcc_flag, reg_flag, 
+      all_data)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.stockId,jdbcType=BIGINT}, #{item.stockCode,jdbcType=VARCHAR}, #{item.statDate,jdbcType=DATE}, 
-        #{item.open,jdbcType=DECIMAL}, #{item.high,jdbcType=DECIMAL}, #{item.volume,jdbcType=BIGINT}, 
-        #{item.preClose,jdbcType=DECIMAL}, #{item.low,jdbcType=DECIMAL}, #{item.amount,jdbcType=DECIMAL}, 
-        #{item.turnoverRatio,jdbcType=DECIMAL}, #{item.peratio,jdbcType=DECIMAL}, #{item.capitalization,jdbcType=DECIMAL}, 
-        #{item.volumeRatio,jdbcType=DECIMAL}, #{item.lyr,jdbcType=DECIMAL}, #{item.totalShareCapital,jdbcType=DECIMAL}, 
-        #{item.weibiRatio,jdbcType=DECIMAL}, #{item.avgPrice,jdbcType=DECIMAL}, #{item.currencyValue,jdbcType=DECIMAL}, 
-        #{item.limitUp,jdbcType=DECIMAL}, #{item.priceLimit,jdbcType=DECIMAL}, #{item.circulatingCapital,jdbcType=DECIMAL}, 
+        #{item.price,jdbcType=DECIMAL}, #{item.ratiostr,jdbcType=VARCHAR}, #{item.ratio,jdbcType=DECIMAL}, 
+        #{item.increase,jdbcType=VARCHAR}, #{item.open,jdbcType=DECIMAL}, #{item.high,jdbcType=DECIMAL}, 
+        #{item.volume,jdbcType=BIGINT}, #{item.preClose,jdbcType=DECIMAL}, #{item.low,jdbcType=DECIMAL}, 
+        #{item.amount,jdbcType=DECIMAL}, #{item.turnoverRatio,jdbcType=DECIMAL}, #{item.peratio,jdbcType=DECIMAL}, 
+        #{item.capitalization,jdbcType=DECIMAL}, #{item.volumeRatio,jdbcType=DECIMAL}, 
+        #{item.lyr,jdbcType=DECIMAL}, #{item.totalShareCapital,jdbcType=DECIMAL}, #{item.weibiRatio,jdbcType=DECIMAL}, 
+        #{item.avgPrice,jdbcType=DECIMAL}, #{item.currencyValue,jdbcType=DECIMAL}, #{item.limitUp,jdbcType=DECIMAL}, 
+        #{item.priceLimit,jdbcType=DECIMAL}, #{item.circulatingCapital,jdbcType=DECIMAL}, 
         #{item.limitDown,jdbcType=DECIMAL}, #{item.amplitudeRatio,jdbcType=DECIMAL}, #{item.inside,jdbcType=BIGINT}, 
         #{item.pricesaleRatio,jdbcType=VARCHAR}, #{item.bvRatio,jdbcType=DECIMAL}, #{item.outside,jdbcType=BIGINT}, 
         #{item.w52High,jdbcType=DECIMAL}, #{item.w52Low,jdbcType=DECIMAL}, #{item.profitFlag,jdbcType=VARCHAR}, 
@@ -475,4 +524,8 @@
   <delete id="delByDateAndCode">
     delete from stock_indicators where stat_date = date_format(#{date}, '%Y-%m-%d') and stock_code = #{code}
   </delete>
+
+  <select id="getByStockId" resultMap="BaseResultMap">
+    select * from stock_indicators where stock_id = #{stockId} order by stat_date
+  </select>
 </mapper>

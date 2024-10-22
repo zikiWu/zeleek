@@ -15,6 +15,26 @@ public class StockIndicators {
     private Date statDate;
 
     /**
+     * 当前价格
+     */
+    private BigDecimal price;
+
+    /**
+     * 涨幅
+     */
+    private String ratiostr;
+
+    /**
+     * 涨幅
+     */
+    private BigDecimal ratio;
+
+    /**
+     * 涨幅价
+     */
+    private String increase;
+
+    /**
      * 今开
      */
     private BigDecimal open;

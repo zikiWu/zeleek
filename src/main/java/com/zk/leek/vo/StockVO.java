@@ -1,9 +1,11 @@
-package com.zk.leek.model;
+package com.zk.leek.vo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
-public class Stock {
+public class StockVO {
     private Long id;
 
     private String code;
@@ -13,4 +15,6 @@ public class Stock {
     private String type;
 
     private String symbol;
+
+    private BigDecimal price;
 }

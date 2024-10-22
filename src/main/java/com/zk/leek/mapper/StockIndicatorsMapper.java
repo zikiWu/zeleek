@@ -1,7 +1,7 @@
 package com.zk.leek.mapper;
 
 import com.zk.leek.model.StockIndicators;
-import java.util.List;
+import java.util.Date;import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface StockIndicatorsMapper {
@@ -18,4 +18,8 @@ public interface StockIndicatorsMapper {
     int updateByPrimaryKey(StockIndicators record);
 
     int batchInsert(@Param("list") List<StockIndicators> list);
+
+    void delByDateAndCode(@Param("date") Date date, @Param("code") String code);
+
+    List<StockIndicators> getByStockId(Long stockId);
 }

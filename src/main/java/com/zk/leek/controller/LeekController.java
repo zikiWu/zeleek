@@ -38,6 +38,14 @@ public class LeekController {
         return CommonResult.createSuccessDTO();
     }
 
+    @GetMapping(value = "/statOther")
+    @ApiResponses({@ApiResponse(code = 400, message = "请求参数没有填好"), @ApiResponse(code = 404, message = "请求路径没有找到")})
+    public CommonResult statOther() {
+        leekService.statOther();
+
+        return CommonResult.createSuccessDTO();
+    }
+
     @GetMapping(value = "/getList")
     @ApiResponses({@ApiResponse(code = 400, message = "请求参数没有填好"), @ApiResponse(code = 404, message = "请求路径没有找到")})
     public CommonResult<List<Stock>> getList() {

@@ -15,4 +15,6 @@ public interface LeekService {
     List<Stock> getList();
 
     StockVO getRandom();
+
+    void statOther();
 }

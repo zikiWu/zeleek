@@ -8,28 +8,21 @@ import com.zk.leek.mapper.StockMapper;
 import com.zk.leek.model.Stock;
 import com.zk.leek.model.StockIndicators;
 import com.zk.leek.service.LeekService;
+import com.zk.leek.util.DateUtil;
 import com.zk.leek.vo.IndicatorsDesc;
 import com.zk.leek.vo.StockVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.http.*;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 @Service
 public class LeekServiceImpl implements LeekService {
@@ -43,7 +36,7 @@ public class LeekServiceImpl implements LeekService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(20, 5000, 60L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(5000));
+    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(200, 5000, 60L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(5000));
 
     String stockUrl = "https://stock.xueqiu.com/v5/stock/screener/quote/list.json?page=%s&size=90&order=desc&order_by=percent&market=CN&type=sh_sz";
     String indicatorsUrl = "https://finance.pae.baidu.com/vapi/v1/getquotation?all=1&srcid=5353&pointType=string&group=quotation_minute_ab&market_type=ab&new_Format=1&finClientType=pc&query=%s&code=%s";
@@ -93,12 +86,18 @@ public class LeekServiceImpl implements LeekService {
     @Override
     public void stat() {
         List<Stock> stockList = stockMapper.getAll();
+        System.out.println(System.currentTimeMillis());
+        getNetDateAndUpdate(stockList);
+        System.out.println(System.currentTimeMillis());
+    }
+
+    private void getNetDateAndUpdate(List<Stock> stockList) {
         for (Stock stock : stockList) {
             threadPoolExecutor.execute(() -> {
                 String codeUrl = String.format(indicatorsUrl, stock.getCode(), stock.getCode());
                 HttpHeaders headers = new HttpHeaders();
                 headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36");
-                headers.set("cookie", "PSTM=1705474285; BIDUPSID=1CA44D8488709B8618BC1BE3299E0D41; MAWEBCUID=web_EHNxADXarZAhBOBezWvzSIOTOrdIGVSImfclmOLcmNJVXjarOC; BAIDUID=62693C7DE029306C6023B9A643B7AF87:FG=1; BDUSS=ZtOGpoVzlzUkhSb2pRSERHZmFufkVMZ0RiUDJLQXh-eTkySmcwNE1qNW1YSzltSVFBQUFBJCQAAAAAAAAAAAEAAACQhElAy6vM-M7otcTT4wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGbPh2Zmz4dmTW; BDUSS_BFESS=ZtOGpoVzlzUkhSb2pRSERHZmFufkVMZ0RiUDJLQXh-eTkySmcwNE1qNW1YSzltSVFBQUFBJCQAAAAAAAAAAAEAAACQhElAy6vM-M7otcTT4wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGbPh2Zmz4dmTW; H_WISE_SIDS=60852_60620_60883_60875; MCITY=-%3A; H_WISE_SIDS_BFESS=60852_60620_60883_60875; ZFY=THCbUZ7VzOeZy43:Bhjhg3XqtxHKe0bQxcVI7asoW1D4:C; BAIDUID_BFESS=62693C7DE029306C6023B9A643B7AF87:FG=1; BA_HECTOR=8h8501ah8g8g2h042l84ahagajn6hj1jhbdbu1u; delPer=0; PSINO=6; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; H_PS_PSSID=60852_60620_60883_60875; RT=\"z=1&dm=baidu.com&si=09c7257d-eef2-4ff7-a6c7-57153c68fd7a&ss=m2itfkfb&sl=5&tt=56t&bcn=https%3A%2F%2Ffclog.baidu.com%2Flog%2Fweirwood%3Ftype%3Dperf&ld=1eit\"; ab_sr=1.0.1_NTAzMDcwYjkxNGNiNzYxNGVjOGJlZjA2NGQ3YjUxNzU0ZmRiZTZhZTIxNzA5OWIzM2IyMmI4MTVmMWM4YTAxODFiZDI0NmQwZWIyZTQ2NzU5YWNmZGQyNTRlNWVhMjhjNWRmNjIyMmJmOTAyZjlmM2MyMzcxMmE3MDE5Nzk3ZGYwZjZlZjk4MjViMmU2Njg2N2JjODZlYzE5NjUxNjVjMQ==");
+                headers.set("cookie", "PSTM=1705474285; BIDUPSID=1CA44D8488709B8618BC1BE3299E0D41; MAWEBCUID=web_EHNxADXarZAhBOBezWvzSIOTOrdIGVSImfclmOLcmNJVXjarOC; BAIDUID=62693C7DE029306C6023B9A643B7AF87:FG=1; BDUSS=ZtOGpoVzlzUkhSb2pRSERHZmFufkVMZ0RiUDJLQXh-eTkySmcwNE1qNW1YSzltSVFBQUFBJCQAAAAAAAAAAAEAAACQhElAy6vM-M7otcTT4wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGbPh2Zmz4dmTW; BDUSS_BFESS=ZtOGpoVzlzUkhSb2pRSERHZmFufkVMZ0RiUDJLQXh-eTkySmcwNE1qNW1YSzltSVFBQUFBJCQAAAAAAAAAAAEAAACQhElAy6vM-M7otcTT4wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGbPh2Zmz4dmTW; H_WISE_SIDS=60852_60620_60883_60875; MCITY=-%3A; H_WISE_SIDS_BFESS=60852_60620_60883_60875; BAIDUID_BFESS=62693C7DE029306C6023B9A643B7AF87:FG=1; delPer=0; PSINO=6; BA_HECTOR=01a42g8400ak258h8h0g24ag9hs0c71jhjpah1u; ZFY=THCbUZ7VzOeZy43:Bhjhg3XqtxHKe0bQxcVI7asoW1D4:C; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; H_PS_PSSID=60852_60620_60883_60875; BCLID=10289878509467506847; BCLID_BFESS=10289878509467506847; BDSFRCVID=NuDOJexroG3WSk7JySe9MZEBIFS16vJTDYrEOwXPsp3LGJLVdaSOEG0Pt_1MvLKh3uj4ogKK3gOTH4DF_2uxOjjg8UtVJeC6EG0Ptf8g0M5; BDSFRCVID_BFESS=NuDOJexroG3WSk7JySe9MZEBIFS16vJTDYrEOwXPsp3LGJLVdaSOEG0Pt_1MvLKh3uj4ogKK3gOTH4DF_2uxOjjg8UtVJeC6EG0Ptf8g0M5; H_BDCLCKID_SF=tJIHVCPXJDD3H48k-4QEbbQH-UnLqbJmtgOZ04n-ah05o5C4jU6BX58YXJ643fcq5eoPXC5m3UTKsq76Wh35K5tTQP6rLqcry6Q4KKJxbPOYMDQtLP50XlO-hUJiB5JMBan7_pbIXKohJh7FM4tW3J0ZyxomtfQxtNRJ0DnjtpChbC_GD6uWej5LeU5eetjK2CntsJOOaCvoJhQOy4oWK441DnALJjbZMmJuhl6u3lozfRQ83Juh3M04K4o9-hvT-54e2p3FBUQZ8MTuQft20b0yXH_q3fJaMeoTVR7jWhk5ep72y5OUQlRX5q79atTMfNTJ-qcH0KQpsIJM5-DWbT8IjHCtt6tjfnFe_Cvt-5rDHJTg5DTjhPrMhPQiWMT-MTryKKO6LbkbO4TbbxoYWxLYytjgJ65qWHnRh4oNB-3iV-OxDUvnyxAZbMQgWMQxtNRJMKjzbqRvjKOGM6OobUPUDUJ9LUkJ3gcdot5yBbc8eIna5hjkbfJBQttjQn3hfIkj2CKLJCK5hKPCDT_3-RJH-xQ0KnLXKKOLVMccHl7ketn4hUt53ptfjP68Q-QKBGQ45qTILKD-flc2QhrKQf4WWb3ebTJr32Qr-JbqLh7psIJM5hPaXJKTyUAe-4IJaKviaKOjBMb1MhbDBT5h2M4qMxtOLR3pWDTm_q5TtUJMeCnTDMFhe6Q0DN0OtjttfKresJoq2RbhKROvhjRF5f0gyxoObtRxtavgBK3FMxOqbq6LQf5zQlJLjljZLU3k-eT9LMnx--t58h3_Xhjf-qtgQttjQn3dtmjq2pvSt-58Mb7TyU45bU47yaOR0q4Hb6b9BJcjfU5MSlcNLTjpQT8r5MDOK5OuJRQ2QJ8BJIIbMIjP; H_BDCLCKID_SF_BFESS=tJIHVCPXJDD3H48k-4QEbbQH-UnLqbJmtgOZ04n-ah05o5C4jU6BX58YXJ643fcq5eoPXC5m3UTKsq76Wh35K5tTQP6rLqcry6Q4KKJxbPOYMDQtLP50XlO-hUJiB5JMBan7_pbIXKohJh7FM4tW3J0ZyxomtfQxtNRJ0DnjtpChbC_GD6uWej5LeU5eetjK2CntsJOOaCvoJhQOy4oWK441DnALJjbZMmJuhl6u3lozfRQ83Juh3M04K4o9-hvT-54e2p3FBUQZ8MTuQft20b0yXH_q3fJaMeoTVR7jWhk5ep72y5OUQlRX5q79atTMfNTJ-qcH0KQpsIJM5-DWbT8IjHCtt6tjfnFe_Cvt-5rDHJTg5DTjhPrMhPQiWMT-MTryKKO6LbkbO4TbbxoYWxLYytjgJ65qWHnRh4oNB-3iV-OxDUvnyxAZbMQgWMQxtNRJMKjzbqRvjKOGM6OobUPUDUJ9LUkJ3gcdot5yBbc8eIna5hjkbfJBQttjQn3hfIkj2CKLJCK5hKPCDT_3-RJH-xQ0KnLXKKOLVMccHl7ketn4hUt53ptfjP68Q-QKBGQ45qTILKD-flc2QhrKQf4WWb3ebTJr32Qr-JbqLh7psIJM5hPaXJKTyUAe-4IJaKviaKOjBMb1MhbDBT5h2M4qMxtOLR3pWDTm_q5TtUJMeCnTDMFhe6Q0DN0OtjttfKresJoq2RbhKROvhjRF5f0gyxoObtRxtavgBK3FMxOqbq6LQf5zQlJLjljZLU3k-eT9LMnx--t58h3_Xhjf-qtgQttjQn3dtmjq2pvSt-58Mb7TyU45bU47yaOR0q4Hb6b9BJcjfU5MSlcNLTjpQT8r5MDOK5OuJRQ2QJ8BJIIbMIjP; ab_sr=1.0.1_NTA1NThkMjk4MWU5ODkxM2JhYTcxNjBjYWRmODIwYTRlYzk3NGM3MWY0YTUyZDAxN2ZmMzJiZjdkMjdlYjkxYzBhMzNjOWJhODEwNGMxM2MzYWQxNzkzNjJmYzQxMDQ4NzM2NjlkNmFhNmMwZWZhMGFkNWRiZjkwN2I4Zjg0YmU3MmY0MmNjZmZjN2ZiZjQ4MTcxNDk1YTlkZTAyNGRkZQ==");
                 HttpEntity<String> entity = new HttpEntity<>(headers);
                 ResponseEntity<String> forEntity = restTemplate.exchange(codeUrl, HttpMethod.GET, entity, String.class);
                 JSONObject jsonObject = JSON.parseObject(forEntity.getBody());
@@ -149,6 +148,14 @@ public class LeekServiceImpl implements LeekService {
     public StockVO getRandom() {
         List<Stock> all = stockMapper.getAll();
         return null;
+    }
+
+    @Override
+    public void statOther() {
+        List<Stock> stockList = stockMapper.getNotData(DateUtil.showFormatedDate( "yyyy-MM-dd", new Date()));
+        System.out.println(System.currentTimeMillis());
+        getNetDateAndUpdate(stockList);
+        System.out.println(System.currentTimeMillis());
     }
 
     private void setValue(StockIndicators stockIndicators, IndicatorsDesc desc, String ename) {

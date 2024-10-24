@@ -107,4 +107,9 @@
   <select id="getAll" resultMap="BaseResultMap">
     select * from stock
   </select>
+
+  <select id="getNotData" resultMap="BaseResultMap">
+    select * from stock s
+    where not exists(select 1 from stock_indicators si where si.stock_id = s.id and si.stat_date = #{date})
+  </select>
 </mapper>

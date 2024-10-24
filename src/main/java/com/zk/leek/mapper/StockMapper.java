@@ -1,6 +1,8 @@
 package com.zk.leek.mapper;
 
 import com.zk.leek.model.Stock;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +22,6 @@ public interface StockMapper {
     int batchInsert(@Param("list") List<Stock> list);
 
     List<Stock> getAll();
+
+    List<Stock> getNotData(@Param("date") String date);
 }
